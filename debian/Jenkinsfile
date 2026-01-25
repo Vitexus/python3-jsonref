@@ -3,10 +3,10 @@
 // Aktuální verze Pipeline: https://github.com/VitexSoftware/BuildImages/blob/main/Test/Jenkinsfile-parael
 
 String[] distributions = [
-    'debian:bookworm',
+    // 'debian:bookworm',
     'debian:trixie',
     'debian:forky',
-    'ubuntu:jammy',
+    // 'ubuntu:jammy',
     'ubuntu:noble'
 ]
 
