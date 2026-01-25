@@ -1,0 +1,19 @@
+Package: python3-jsonref
+Source: python-jsonref
+Version: 1.1.0-1
+Architecture: all
+Maintainer: Vítězslav Dvořák <info@vitexsoftware.cz>
+Installed-Size: 46
+Depends: python3:any
+Section: python
+Priority: optional
+Homepage: https://github.com/gazpachoking/jsonref
+Description: Library for automatic dereferencing of JSON Reference objects
+ jsonref is a library for automatic dereferencing of JSON Reference
+ objects for Python (see https://tools.ietf.org/html/draft-pbryan-zyp-json-ref-03).
+ .
+ It allows you to work with JSON documents that use references to other
+ documents or parts of the same document. The library automatically resolves
+ these references to return the complete data structure.
+ .
+ This package provides the Python 3 library.
