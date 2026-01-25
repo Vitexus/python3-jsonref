@@ -6,6 +6,9 @@ from urllib import parse as urlparse
 from urllib.parse import unquote
 from urllib.request import urlopen
 
+from . import proxytypes  # noqa: F401
+from .proxytypes import LazyProxy
+
 try:
     # If requests >=1.0 is available, we will use it
     import requests
@@ -14,8 +17,6 @@ try:
         requests = None
 except ImportError:
     requests = None
-
-from proxytypes import LazyProxy
 
 __version__ = "1.1.0"
 
@@ -261,13 +262,13 @@ def jsonloader(uri, **kwargs):
 def _walk_refs(obj, func, replace=False, _processed=None):
     # Keep track of already processed items to prevent recursion
     _processed = _processed or {}
-    oid = id(obj)
-    if oid in _processed:
-        return _processed[oid]
     if type(obj) is JsonRef:
+        oid = id(obj)
+        if oid in _processed:
+            return _processed[oid]
         r = func(obj)
         obj = r if replace else obj
-    _processed[oid] = obj
+        _processed[oid] = obj
     if isinstance(obj, Mapping):
         for k, v in obj.items():
             r = _walk_refs(v, func, replace=replace, _processed=_processed)
@@ -350,7 +351,7 @@ def _replace_refs(
     merge_props,
     store,
     path,
-    recursing
+    recursing,
 ):
     base_uri, frag = urlparse.urldefrag(base_uri)
     store_uri = None  # If this does not get set, we won't store the result
@@ -424,7 +425,7 @@ def load(
     merge_props=False,
     proxies=True,
     lazy_load=True,
-    **kwargs
+    **kwargs,
 ):
     """
     Drop in replacement for :func:`json.load`, where JSON references are
@@ -461,7 +462,7 @@ def loads(
     merge_props=False,
     proxies=True,
     lazy_load=True,
-    **kwargs
+    **kwargs,
 ):
     """
     Drop in replacement for :func:`json.loads`, where JSON references are
